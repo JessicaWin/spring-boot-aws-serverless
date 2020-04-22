@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Lambda application that calls the Lambda API.
+Globals:
+  Api:
+    EndpointConfiguration: REGIONAL
+
+Resources:
+  ServerlessSpringBootFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.jessica.spring.boot.aws.serverless.api.handler.StreamLambdaHandler
+      Runtime: java8
+      CodeUri: target/spring-boot-aws-serverless-api-0.0.1-SNAPSHOT.jar
+      MemorySize: 512
+      Policies: AWSLambdaBasicExecutionRole
+      Timeout: 30
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: any
+
+Outputs:
+  ServerlessSpringBootApi:
+    Description: URL for application
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/'
+    Export:
+      Name: ServerlessSpringBootApi

@@ -1,0 +1,22 @@
+# Properties for stage: develop
+
+# Variant of each developer
+variant: 'jessica'
+
+# The region you will deploy your lambda to
+region: ap-southeast-1
+
+# The bucket your upload your lambda resource(Including jar) to
+deploymentBucket: ${self:provider.stage}-serverless-deploy
+
+LANDSCAPE: ${self:provider.stage}
+
+# AWS Account ID
+ACCOUNT_ID:
+  Ref: 'AWS::AccountId'
+
+BUILD_STAMP: "develop"
+
+#Access control
+ACCESS_CONTROL_ALLOW_ORIGIN_RULES: "*"
+
